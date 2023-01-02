@@ -179,7 +179,7 @@ class TestHBNBCommand_show(unittest.TestCase):
     """Unittests for testing show from the HBNB command interpreter"""
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         try:
             os.rename("file.json", "tmp")
         except IOError:
@@ -187,7 +187,7 @@ class TestHBNBCommand_show(unittest.TestCase):
         FileStorage.__objects = {}
 
     @classmethod
-    def tearDown(self):
+    def tearDown(cls):
         try:
             os.remove("file.json")
         except IOError:
@@ -432,7 +432,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
     """Unittests for testing destroy from the HBNB command interpreter."""
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         try:
             os.rename("file.json", "tmp")
         except IOError:
@@ -440,7 +440,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
         FileStorage.__objects = {}
 
     @classmethod
-    def tearDown(self):
+    def tearDown(cls):
         try:
             os.remove("file.json")
         except IOError:
@@ -686,7 +686,7 @@ class TestHBNBCommand_all(unittest.TestCase):
     """Unittests for testing all of the HBNB command interpreter."""
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         try:
             os.rename("file.json", "tmp")
         except IOError:
@@ -694,7 +694,7 @@ class TestHBNBCommand_all(unittest.TestCase):
         FileStorage.__objects = {}
 
     @classmethod
-    def tearDown(self):
+    def tearDown(cls):
         try:
             os.remove("file.json")
         except IOError:
@@ -832,7 +832,7 @@ class TestHBNBCommand_update(unittest.TestCase):
     """Unittests for testing update from the HBNB command interpreter."""
 
     @classmethod
-    def setUp(self):
+    def setUp(cls):
         try:
             os.rename("file.json", "tmp")
         except IOError:
@@ -840,7 +840,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         FileStorage.__objects = {}
 
     @classmethod
-    def tearDown(self):
+    def tearDown(cls):
         try:
             os.remove("file.json")
         except IOError:
