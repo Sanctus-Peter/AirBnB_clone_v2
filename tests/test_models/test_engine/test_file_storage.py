@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Module for testing file storage"""
 import unittest
+import pep8
 from models.base_model import BaseModel
 from models import storage
 import os
@@ -27,6 +28,12 @@ class test_fileStorage(unittest.TestCase):
     def test_obj_list_empty(self):
         """ __objects is initially empty """
         self.assertEqual(len(storage.all()), 0)
+
+    def test_pep8(self):
+        """ Test pep8 """
+        style = pep8.StyleGuide(quiet=True)
+        result = style.check_files(['models/engine/file_storage.py'])
+        self.assertEqual(result.total_errors, 0, "fix pep8")
 
     def test_new(self):
         """ New object is correctly added to __objects """
