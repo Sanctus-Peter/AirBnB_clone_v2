@@ -138,9 +138,22 @@ class HBNBCommand(cmd.Cmd):
         [Return]: id of the created class
         """
         args = check_args(arg)
+        kwargs = {}
         if args:
-            print(eval(args[0])().id)
-            storage.save()
+            for obj in args[1:]:
+                key, value = obj.split("=")
+                if value.isdigit():
+                    kwargs[key] = int(value)
+                elif self.isfloat(value):
+                    kwargs[key] = float(value)
+                else:
+                    kwargs[key] = value.replace("_", " ")
+                    kwargs[key] = kwargs[key].replace('"', '')
+                    print(args[0])
+            new_obj = self.classes[args[0]](**kwargs)
+            storage.new(new_obj)
+            new_obj.save()
+            print(new_obj.id)
 
     def do_show(self, argv):
         """
@@ -218,6 +231,15 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** no instance found **")
             storage.save()
+
+    @staticmethod
+    def isfloat(value):
+        """Check if value is a float"""
+        try:
+            float(value)
+            return True
+        except ValueError:
+            return False
 
 
 if __name__ == "__main__":
