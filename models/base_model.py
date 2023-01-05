@@ -2,17 +2,25 @@
 """A module that implements the BaseModel class"""
 from uuid import uuid4
 from datetime import datetime
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 
 class BaseModel:
     """A class that defines all common attributes/methods for other classes"""
+
+    id = Column(String(60), primary_key=True, nullable=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+
     def __init__(self, *args, **kwargs):
         if not kwargs:
             from models import storage
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
         else:
             if "__class__" in kwargs:
                 del kwargs["__class__"]
@@ -56,8 +64,16 @@ class BaseModel:
         """
         my_dict = self.__dict__.copy()
         my_dict["__class__"] = self.__class__.__name__
+        if '_sa_instance_state' in my_dict:
+            del my_dict['_sa_instance_state']
+
         for key, value in self.__dict__.items():
             if key in ("created_at", "updated_at"):
                 value = self.__dict__[key].isoformat()
                 my_dict[key] = value
         return my_dict
+
+    def delete(self):
+        """delete the current instance from the storage"""
+        from models import storage
+        storage.delete(self)
