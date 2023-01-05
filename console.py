@@ -195,7 +195,7 @@ class HBNBCommand(cmd.Cmd):
         [USAGE]: all <classname>
         """
         arg_list = shlex.split(argv)
-        objects = storage.all().values()
+        objects = storage.all()
         if not arg_list:
             print([str(obj) for obj in objects])
         else:
